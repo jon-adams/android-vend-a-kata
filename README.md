@@ -6,7 +6,7 @@ A little Android 'vending machine' app kata.
 
 Standard Android development requirements: 
 
-* Install the Android SDK, using SDK 26 (though the app is configured to run on devices with older versions, it must be compiled with 26)
+* Install the Android SDK, using SDK 26 (though the app is configured to run on devices with v20 and newer, but must compile with v26)
 * Gradle build system
 * Android Studio is recommended for ease of testing
 * Clone or otherwise acquire the repository
@@ -14,11 +14,11 @@ Standard Android development requirements:
 ## Usage
 
 * Open the provided Android Studio project, or do the following with the standard gradle equivalent commands
-* Run the `vend` configuration in an emulator or device running Android 7+
+* Run the `app` configuration in an emulator or device running Android 7+
 
 ### Automated tests
 
-* Run the `vend integration` configuration for running the integration tests   
+* Run the usual gradle Android test tasks (`test`, etc.) from the command line, or use Android Studio and right-click under the app `/java` path and either the androidTest (integration) or test (unit) structures to run the appropriate tests
 
 ## Kata requirements
 

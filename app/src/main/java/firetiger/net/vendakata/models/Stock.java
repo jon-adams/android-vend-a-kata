@@ -8,10 +8,9 @@ import java.util.Locale;
  * The stock of a product for use in a {@link VendingMachine}
  */
 public class Stock {
-    private final int available;
-
     @NonNull
     private final Product product;
+    private int available;
 
     public Stock(@NonNull Product product, int available) {
         if (available < 0) {
@@ -22,13 +21,30 @@ public class Stock {
         this.available = available;
     }
 
+    @NonNull
+    public Product getProduct() {
+        return product;
+    }
+
     public int getAvailable() {
         return available;
     }
 
-    @NonNull
-    public Product getProduct() {
-        return product;
+    /**
+     * Reduces the available stock of this product by one.
+     *
+     * @throws UnsupportedOperationException if no product is currently available
+     */
+    public void reduceAvailable() {
+        if (this.available < 1) {
+            throw new UnsupportedOperationException(
+                    String.format(
+                            Locale.US,
+                            "No stock for %s is available at this time.",
+                            this.product));
+        }
+
+        this.available--;
     }
 
     @Override

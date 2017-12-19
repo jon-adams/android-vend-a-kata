@@ -17,11 +17,11 @@ import static org.junit.Assert.assertNotNull;
 public class VendingServiceExactChangeFeature {
     private IVendService machine;
 
-    private Product cola = new Product("cola", 5);
+    private Product cola = new Product("ROYAL crown cola", 500);
 
     @Before
     public void setUp() {
-        List<Stock> stock = new ArrayList<>(3);
+        List<Stock> stock = new ArrayList<>(1);
         stock.add(new Stock(cola, 200));
         this.machine = new VendingMachine(stock);
     }
@@ -31,10 +31,6 @@ public class VendingServiceExactChangeFeature {
         assertNotNull(
                 "Machine should have been setup by the fixture",
                 this.machine);
-    }
-
-    @Test
-    public void checkTestDataSetup() throws Exception {
         assertEquals(
                 "Expected no money pending return in the standard machine setup",
                 0,
@@ -43,14 +39,7 @@ public class VendingServiceExactChangeFeature {
 
     @Test
     public void exactChange() {
-        // machine starts with a default of 400 ($4.00);
-        // loop through until it is empty (based on cost minus change but
-        // plus the cost... so evens out to whatever was entered to start with)
-        for (int i = 0; i < Math.ceil(400f / 25f); i++) {
-            this.machine.insertCoin(25);
-            this.machine.purchaseProduct(cola);
-        }
-
+        // expects the machine to be setup with any product worth more than the default starting change of $4
         assertEquals("EXACT CHANGE ONLY", this.machine.updateAndGetCurrentMessageForDisplay());
     }
 }

@@ -5,18 +5,44 @@ import android.support.annotation.NonNull;
 import java.util.List;
 import java.util.Locale;
 
+import firetiger.net.vendakata.services.IVendService;
+
 /**
  * A vending machine
  */
-public class VendingMachine /* : IVendService */ {
-    private final List<Product> availableProducts;
+public class VendingMachine implements IVendService {
+    /*
+     * NOTE: Coins are counted internally as integers, and only converted to
+     * decimal USD on output, to simplify accuracy and increase performance
+     */
+
+    /**
+     * Nickel ($0.05)
+     */
+    private final int COIN_NICKEL = 5;
+
+    /**
+     * Dime ($0.10)
+     */
+    private final int COIN_DIME = 10;
+
+    /**
+     * Quarter ($0.25)
+     */
+    private final int COIN_QUARTER = 25;
+
+    private final List<Stock> availableStock;
+
     /**
      * In-flight/current value of currency provided by the current/last user
      * for use in purchases
      * <p>
      * Starts with no currency in flight—no freebies for the first user!
      */
-    private float currencyInUsd = 0f;
+    private int currencyInUsc = 0;
+
+    private int returnInUsc = 0;
+
     /**
      * Track how much change is available in the machine.
      * <p>
@@ -26,23 +52,61 @@ public class VendingMachine /* : IVendService */ {
      * Starts with $4.00 in change (since the kata requirements did not specify
      * the amount)
      */
-    private float changeInUsd = 4.0f;
+    private int changeInUsc = 4;
 
     /**
      * Construct a machine instance
      *
-     * @param availableProducts available products
+     * @param availableStock available products and their current stock
      */
-    public VendingMachine(@NonNull List<Product> availableProducts) {
-        this.availableProducts = availableProducts;
+    public VendingMachine(@NonNull List<Stock> availableStock) {
+        this.availableStock = availableStock;
     }
 
     @Override
     public String toString() {
         return String.format(Locale.US,
                 "$%3.2f in flight, $%3.2f in change, and %d products",
-                currencyInUsd,
-                changeInUsd,
-                availableProducts.size());
+                (float) currencyInUsc / 100,
+                (float) changeInUsc / 100,
+                availableStock.size());
+    }
+
+    @Override
+    public boolean insertCoin(int usc) {
+        // TODO: covert USD to internal integer
+        // TODO: implement insertCoin()
+        return false;
+    }
+
+    @NonNull
+    @Override
+    public String updateAndGetCurrentMessageForDisplay() {
+        return null;
+    }
+
+    @Override
+    public int getAcceptedUsc() {
+        return currencyInUsc;
+    }
+
+    @Override
+    public int getUscInReturn() {
+        return returnInUsc;
+    }
+
+    @Override
+    public boolean purchaseProduct(@NonNull Product product) {
+        return false;
+    }
+
+    @Override
+    public void returnCoins() {
+        // TODO: implement returnCoins()
+    }
+
+    @Override
+    public void collectCoins() {
+        this.returnInUsc = 0;
     }
 }

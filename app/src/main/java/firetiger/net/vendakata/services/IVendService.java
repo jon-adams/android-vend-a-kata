@@ -9,41 +9,72 @@ import firetiger.net.vendakata.models.Product;
  */
 public interface IVendService {
     /**
-     * Accepts a coin (based on its value) and adds to current in-process cash if valid
+     * Accepts a coin (based on its value) and adds to current in-process cash
+     * if valid
      *
-     * @param usd US dollar amount of the coin inserted
-     * @return true if the coin was accepted; false if the coin was rejected and added to the coins-in-return
+     * @param usc US cent amount (100th of a USD) of the coin inserted
+     * @return true if the coin was accepted; false if the coin was rejected
+     * and added to the coins-in-return
      */
-    public boolean insertCoin(float usd);
+    public boolean insertCoin(int usc);
 
     /**
-     * Updates the current display message based on the state of the vending machine and returns what that should show to the user
+     * Updates the current display message based on the state of the vending
+     * machine and returns what that should show to the user
      * <p>
-     * Non-deterministic: display may change from one call to the next depending on the state of the machine
+     * Non-deterministic: display may change from one call to the next
+     * depending on the state of the machine
      *
-     * @return the message to display to the user
+     * @return the message to display to the user, will be listed as USD if
+     * any value is shown
      */
     @NonNull
     public String updateAndGetCurrentMessageForDisplay();
 
     /**
-     * Gets the value of coins in the return (either that were rejected during insert, or are in-process and user requested a return
+     * Gets the value of coins in the return (either that were rejected during
+     * insert, or user requested a return
      *
-     * @return the value of coins in the return
+     * @return the value of coins in the return, as cents (100th of a USD)
      */
-    public float getCoinsInReturn();
+    public int getAcceptedUsc();
+
+    /**
+     * Gets the value of coins in the return (either that were rejected during
+     * insert, or user requested a return
+     *
+     * @return the value of coins in the return, as cents (100th of a USD)
+     */
+    public int getUscInReturn();
 
     /**
      * Purchases the requested product.
      * <p>
-     * If enough currency and product is available, will deliver to the user and deduct the value from the in-process cash.
+     * If enough currency and product is available, will deliver to the user
+     * and deduct the value from the in-process cash.
      * <p>
      * If the product may not be purchased at this time, will return false.
      * <p>
-     * Either success or failure will update the display appropriately; make sure to check and display to the user
+     * Either success or failure will update the display appropriately; make
+     * sure to check and display to the user
      *
      * @param product the requested product
-     * @return true if the product was purchased and delivered to the user; false if invalid for any reason
+     * @return true if the product was purchased and delivered to the user;
+     * false if invalid for any reason
      */
     public boolean purchaseProduct(@NonNull Product product);
+
+    /**
+     * User may request coins to return all available currency in the machine
+     * not used for a purchase yet; available coins go to the return, aka
+     * {@link #getUscInReturn()}
+     */
+    void returnCoins();
+
+    /**
+     * Simulate user collecting the coins in the return.
+     * <p>
+     * Effectively zeros out anything in {@link #getUscInReturn()}.
+     */
+    void collectCoins();
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import firetiger.net.vendakata.models.Product;
+import firetiger.net.vendakata.models.Stock;
 import firetiger.net.vendakata.models.VendingMachine;
 import firetiger.net.vendakata.services.IVendService;
 
@@ -18,22 +19,67 @@ public class VendingServiceAcceptCoinsFeature {
 
     @Before
     public void setUp() {
-        List<Product> products = new ArrayList<Product>(3);
-        products.add(new Product("grapes", 0.0f));
-        products.add(new Product("wrath", 0.50f));
-        products.add(new Product("ivory", 5.0f));
+        List<Stock> stock = new ArrayList<>(3);
+        stock.add(new Stock(new Product("grapes", 0), 2));
+        stock.add(new Stock(new Product("wrath", 50), 2));
+        stock.add(new Stock(new Product("ivory", 500), 2));
 
-        // cast will fail for now—TDD; will implement next
-        this.machine = (IVendService) new VendingMachine(products);
+        this.machine = new VendingMachine(stock);
     }
 
     @Test
     public void validMachineCreatedDuringTestSetup() throws Exception {
-        assertNotNull("Machine should have been setup by the fixture", this.machine);
+        assertNotNull(
+                "Machine should have been setup by the fixture",
+                this.machine);
     }
 
     @Test
     public void checkTestDataSetup() throws Exception {
-        assertEquals("Expected several products to be created for the standard machine setup", 0f, machine.getCoinsInReturn(), 0.01f);
+        assertEquals(
+                "Expected no money pending return in the standard machine setup",
+                0,
+                machine.getUscInReturn());
+    }
+
+    @Test
+    public void acceptValidNickel() {
+        this.machine.insertCoin(5);
+        assertEquals(0, this.machine.getUscInReturn());
+        assertEquals("$0.05", this.machine.updateAndGetCurrentMessageForDisplay());
+    }
+
+    @Test
+    public void acceptValidDime() {
+        this.machine.insertCoin(10);
+        assertEquals(0, this.machine.getUscInReturn());
+        assertEquals("$0.10", this.machine.updateAndGetCurrentMessageForDisplay());
+    }
+
+    @Test
+    public void acceptValidQuarter() {
+        this.machine.insertCoin(25);
+        assertEquals(0, this.machine.getUscInReturn());
+        assertEquals("$0.25", this.machine.updateAndGetCurrentMessageForDisplay());
+    }
+
+    @Test
+    public void acceptValidCoins() {
+        this.machine.insertCoin(5);
+        this.machine.insertCoin(10);
+        this.machine.insertCoin(25);
+        this.machine.insertCoin(25);
+        assertEquals(0, this.machine.getUscInReturn());
+        assertEquals("$0.65", this.machine.updateAndGetCurrentMessageForDisplay());
+    }
+
+    @Test
+    public void rejectInvalidCoins() {
+        assertEquals("INSERT COIN", this.machine.updateAndGetCurrentMessageForDisplay());
+        this.machine.insertCoin(1);
+        assertEquals(1, this.machine.getUscInReturn());
+        assertEquals("INSERT COIN", this.machine.updateAndGetCurrentMessageForDisplay());
+        this.machine.insertCoin(2);
+        assertEquals(3, this.machine.getUscInReturn());
     }
 }

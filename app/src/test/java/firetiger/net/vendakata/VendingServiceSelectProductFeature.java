@@ -54,7 +54,7 @@ public class VendingServiceSelectProductFeature {
         this.machine.insertCoin(25);
         this.machine.insertCoin(25);
         assertEquals(105, this.machine.getAcceptedUsc());
-        assertTrue(this.machine.purchaseProduct(cola));
+        assertTrue(this.machine.purchaseProduct(0));
         assertEquals(0, this.machine.getAcceptedUsc());
         assertEquals("THANK YOU", this.machine.updateAndGetCurrentMessageForDisplay());
         assertEquals("INSERT COIN", this.machine.updateAndGetCurrentMessageForDisplay());
@@ -62,14 +62,14 @@ public class VendingServiceSelectProductFeature {
 
     @Test
     public void purchaseProductInsufficientFunds() {
-        assertFalse(this.machine.purchaseProduct(cola));
+        assertFalse(this.machine.purchaseProduct(0));
         // feature spec wasn't explicit whether this state should animate "PRICE" then separately show "$0.05", nor the format of the price;
         // assuming they can be combined into one line without animation, and matching the currency format used elsewhere in the requirements document
         assertEquals("PRICE $1.00", this.machine.updateAndGetCurrentMessageForDisplay());
         assertEquals("INSERT COIN", this.machine.updateAndGetCurrentMessageForDisplay());
 
         this.machine.insertCoin(5);
-        assertFalse(this.machine.purchaseProduct(cola));
+        assertFalse(this.machine.purchaseProduct(0));
         // should still show price even if some money is accepted
         assertEquals("PRICE $1.00", this.machine.updateAndGetCurrentMessageForDisplay());
         // but next check should show accepted value

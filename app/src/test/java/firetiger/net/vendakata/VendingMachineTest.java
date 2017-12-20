@@ -13,9 +13,8 @@ import firetiger.net.vendakata.services.IVendService;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
-public class VendingServiceMakeChangeFeature {
+public class VendingMachineTest {
     private IVendService machine;
 
     private Product cola = new Product("cola", 100);
@@ -46,13 +45,26 @@ public class VendingServiceMakeChangeFeature {
     }
 
     @Test
-    public void changeIsMadeWhenProductSelectedOfLessValueThanCurrent() {
+    public void returnCoins() {
+        assertEquals("INSERT COIN", this.machine.updateAndGetCurrentMessageForDisplay());
         this.machine.insertCoin(5);
-        this.machine.insertCoin(25);
-        this.machine.insertCoin(25);
-        this.machine.insertCoin(25);
-        this.machine.insertCoin(25);
-        assertTrue(this.machine.purchaseProduct(0));
-        assertEquals(105 - cola.getCostInUsc(), this.machine.getUscInReturn());
+        assertEquals("$0.05", this.machine.updateAndGetCurrentMessageForDisplay());
+    }
+
+    @Test
+    public void collectCoins() {
+        this.machine.insertCoin(5);
+        this.machine.returnCoins();
+        assertEquals(5, this.machine.getUscInReturn());
+        this.machine.collectCoins();
+        assertEquals(0, this.machine.getUscInReturn());
+    }
+
+    @Test
+    public void testToString() throws Exception {
+        assertEquals(
+                "toString result did not match expected",
+                "$0.00 in flight, $4.00 in change, and 3 products",
+                this.machine.toString());
     }
 }

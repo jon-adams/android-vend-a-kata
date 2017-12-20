@@ -5,13 +5,15 @@ import org.junit.Test;
 import firetiger.net.vendakata.models.Product;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-public class ProductSmokeTest {
+public class ProductTest {
     @Test
     public void validProduct() throws Exception {
         Product p = new Product("Something", 5);
         assertNotNull("Product should not have been null", p);
+        assertEquals("Something", p.getName());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -38,6 +40,13 @@ public class ProductSmokeTest {
                 "equals() implementation of two different but equal objects did not match expected",
                 new Product("Name", 2),
                 new Product("Name", 2));
+    }
+
+    @Test
+    public void testEqualityOfDifferentTypes() throws Exception {
+        assertFalse(
+                "equals() implementation of two different types should return false",
+                new Product("Name", 2).equals(new Object()));
     }
 
     @Test

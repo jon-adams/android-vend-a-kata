@@ -2,8 +2,6 @@ package firetiger.net.vendakata.services;
 
 import android.support.annotation.NonNull;
 
-import firetiger.net.vendakata.models.Product;
-
 /**
  * Service for core vend functionality
  */
@@ -16,7 +14,7 @@ public interface IVendService {
      * @return true if the coin was accepted; false if the coin was rejected
      * and added to the coins-in-return
      */
-    public boolean insertCoin(int usc);
+    boolean insertCoin(int usc);
 
     /**
      * Updates the current display message based on the state of the vending
@@ -29,7 +27,7 @@ public interface IVendService {
      * any value is shown
      */
     @NonNull
-    public String updateAndGetCurrentMessageForDisplay();
+    String updateAndGetCurrentMessageForDisplay();
 
     /**
      * Gets the value of coins in the return (either that were rejected during
@@ -37,7 +35,7 @@ public interface IVendService {
      *
      * @return the value of coins in the return, as cents (100th of a USD)
      */
-    public int getAcceptedUsc();
+    int getAcceptedUsc();
 
     /**
      * Gets the value of coins in the return (either that were rejected during
@@ -45,7 +43,7 @@ public interface IVendService {
      *
      * @return the value of coins in the return, as cents (100th of a USD)
      */
-    public int getUscInReturn();
+    int getUscInReturn();
 
     /**
      * Purchases the requested product.
@@ -58,11 +56,11 @@ public interface IVendService {
      * Either success or failure will update the display appropriately; make
      * sure to check and display to the user
      *
-     * @param product the requested product
+     * @param productIndex the index of the requested product
      * @return true if the product was purchased and delivered to the user;
      * false if invalid for any reason
      */
-    public boolean purchaseProduct(@NonNull Product product);
+    boolean purchaseProduct(int productIndex);
 
     /**
      * User may request coins to return all available currency in the machine

@@ -1,7 +1,6 @@
 package firetiger.net.vendakata.models;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.List;
 import java.util.Locale;
@@ -105,7 +104,7 @@ public class VendingMachine implements IVendService {
                 this.currencyInUsc += usc;
                 this.lastMessage = String.format(
                         Locale.US,
-                        MSG_FORMAT_PRICE,
+                        MSG_STATIC_FORMAT_AVAILABLE,
                         (float) this.currencyInUsc / 100);
                 return true;
             default:
@@ -156,16 +155,9 @@ public class VendingMachine implements IVendService {
     }
 
     @Override
-    public boolean purchaseProduct(@NonNull Product product) {
-        // find product
-        for (final Stock stock : availableStock) {
-            if (stock.getProduct().equals(product)) {
-                return tryToPurchase(stock);
-            }
-        }
-
-        Log.w("VendingMachine", "Unknown product requested for purchase: " + product);
-        return false;
+    public boolean purchaseProduct(int productIndex) {
+        return productIndex < availableStock.size() &&
+                tryToPurchase(availableStock.get(productIndex));
     }
 
     private boolean tryToPurchase(@NonNull final Stock stock) {

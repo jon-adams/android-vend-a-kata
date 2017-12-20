@@ -47,7 +47,7 @@ public class VendingServiceSoldOutFeature {
 
     @Test
     public void soldOutWithNoAccepted() {
-        assertFalse(this.machine.purchaseProduct(cola));
+        assertFalse(this.machine.purchaseProduct(0));
         assertEquals(0, this.machine.getAcceptedUsc());
         assertEquals("SOLD OUT", this.machine.updateAndGetCurrentMessageForDisplay());
         assertEquals("INSERT COIN", this.machine.updateAndGetCurrentMessageForDisplay());
@@ -56,7 +56,7 @@ public class VendingServiceSoldOutFeature {
     @Test
     public void soldOutWithAccepted() {
         this.machine.insertCoin(5);
-        assertFalse(this.machine.purchaseProduct(cola));
+        assertFalse(this.machine.purchaseProduct(0));
         assertEquals(5, this.machine.getAcceptedUsc());
         assertEquals("SOLD OUT", this.machine.updateAndGetCurrentMessageForDisplay());
         assertEquals("$0.05", this.machine.updateAndGetCurrentMessageForDisplay());

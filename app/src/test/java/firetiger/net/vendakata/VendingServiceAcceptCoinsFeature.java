@@ -46,21 +46,21 @@ public class VendingServiceAcceptCoinsFeature {
     public void acceptValidNickel() {
         this.machine.insertCoin(5);
         assertEquals(0, this.machine.getUscInReturn());
-        assertEquals("PRICE $0.05", this.machine.updateAndGetCurrentMessageForDisplay());
+        assertEquals("$0.05", this.machine.updateAndGetCurrentMessageForDisplay());
     }
 
     @Test
     public void acceptValidDime() {
         this.machine.insertCoin(10);
         assertEquals(0, this.machine.getUscInReturn());
-        assertEquals("PRICE $0.10", this.machine.updateAndGetCurrentMessageForDisplay());
+        assertEquals("$0.10", this.machine.updateAndGetCurrentMessageForDisplay());
     }
 
     @Test
     public void acceptValidQuarter() {
         this.machine.insertCoin(25);
         assertEquals(0, this.machine.getUscInReturn());
-        assertEquals("PRICE $0.25", this.machine.updateAndGetCurrentMessageForDisplay());
+        assertEquals("$0.25", this.machine.updateAndGetCurrentMessageForDisplay());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class VendingServiceAcceptCoinsFeature {
         this.machine.insertCoin(25);
         this.machine.insertCoin(25);
         assertEquals(0, this.machine.getUscInReturn());
-        assertEquals("PRICE $0.65", this.machine.updateAndGetCurrentMessageForDisplay());
+        assertEquals("$0.65", this.machine.updateAndGetCurrentMessageForDisplay());
     }
 
     @Test

@@ -8,13 +8,31 @@ import firetiger.net.vendakata.models.Stock;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class StockSmokeTest {
+public class StockTest {
     @Test
     public void validStock() throws Exception {
         Stock s = new Stock(new Product("Something", 5), 2);
         assertNotNull("Stock should not have been null", s);
         assertNotNull(s.getProduct());
         assertEquals(2, s.getAvailable());
+    }
+
+    @Test()
+    public void removeStock() throws Exception {
+        Stock s = new Stock(new Product("Something", 5), 1);
+        assertNotNull("Stock should not have been null", s);
+        s.reduceAvailable();
+        assertEquals(0, s.getAvailable());
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void removeEmptyStock() throws Exception {
+        Stock s = new Stock(new Product("Something", 5), 1);
+        assertNotNull("Stock should not have been null", s);
+        s.reduceAvailable();
+        assertEquals("Should have passed one call to reduceAvailable since stock was 1", 0, s.getAvailable());
+        // but the second one should fail with UnsupportedOperationException
+        s.reduceAvailable();
     }
 
     @Test(expected = IllegalArgumentException.class)

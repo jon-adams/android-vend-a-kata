@@ -6,7 +6,8 @@
     <string name="vend_action_return">Return</string>
     <string name="vend_action_purchase_default">Product Name</string>
     <string name="vend_action_insert">Insert Coins</string>
-    <string name="vend_action_collect">Collect Change</string>
+    <string name="vend_action_collect_default">Collect Change</string>
+    <string name="vend_action_collect" formatted="true">Change: $%3.2f</string>
     <string name="vend_img_samples">Yummy snacks!</string>
 
     <string name="product_1">Cola</string>

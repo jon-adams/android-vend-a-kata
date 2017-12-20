@@ -1,4 +1,4 @@
-# android-vend-akata
+# android-vend-a-kata
 
 A little Android 'vending machine' app kata.
 

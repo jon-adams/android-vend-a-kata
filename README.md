@@ -2,6 +2,8 @@
 
 A little Android 'vending machine' app kata.
 
+![sample screenshot](screenshot.png)
+
 ## Installation
 
 Standard Android development requirements: 

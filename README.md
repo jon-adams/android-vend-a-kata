@@ -14,6 +14,7 @@ Standard Android development requirements:
 ## Usage
 
 * Open the provided Android Studio project, or do the following with the standard gradle equivalent commands
+* Use the `debug` variant (because `release` mode does not have a signing key setup since this is a demo)
 * Run the `app` configuration in an emulator or device running Android 7+
 
 ### Automated tests
@@ -53,3 +54,5 @@ Standard Android development requirements:
 
 * I was not sure if "No special consideration should be made for screen orientation" meant that it *should* have alternate views and support for orientation changes in the middle of the app, or if it meant it does *not* need to implement that robustness?
 For time purposes, I'm going with the latter for now. That means the layout does not really work on a small screen landscape orientation, but portrait small screen or either orientation on a tablet should work fine.
+* Demo "snacks" image only provided in HDPI resolution; a real app would have multiple DPI images available in the `mipmap-hdpi`, `mipmap-xxhdpi`, etc. directories, but this was just a random image I pulled from stock photos with no real aspect ratio or design needs met besides just adding some eye candy to an otherwise boring demo interface
+* WIP: This is still a work-in-progress. All the current tests pass. But, for example, need to implement view models more properly, landscape small screen is not supported, the lifecycle is very naive and will reset the whole app on rotation change, etc. 

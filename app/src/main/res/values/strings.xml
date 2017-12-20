@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Vend-a-kata</string>
+
+    <string name="vend_help_coin">Use nickels, dimes, quarters</string>
+    <string name="vend_display_default">INSERT COINS</string>
+    <string name="vend_action_return">Return</string>
+    <string name="vend_action_purchase_default">Product Name</string>
+    <string name="vend_action_insert">Insert Coins</string>
+    <string name="vend_action_collect">Collect Change</string>
+    <string name="vend_img_samples">Yummy snacks!</string>
+
+    <string name="product_1">Cola</string>
+    <string name="product_2">Chips</string>
+    <string name="product_3">Candy</string>
 </resources>

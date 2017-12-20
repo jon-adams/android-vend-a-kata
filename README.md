@@ -25,7 +25,7 @@ Standard Android development requirements:
 * accept money, make change, maintain inventory, and dispense products
 * one or more views
 * network access should not be required
-* screen orientation changes should be allowed
+* > "No special consideration should be made for screen orientation."
 * accept coins
   * accept valid coins (nickels, dimes, and quarters) and reject invalid ones (pennies)
   * when a valid coin is inserted the amount of the coin will be added to the current amount and the display will be updated
@@ -48,3 +48,7 @@ Standard Android development requirements:
 * exact change only
   * when the machine is not able to make change with the money in the machine for any of the items that it sells, it will display "EXACT CHANGE ONLY" instead of "INSERT COIN"
 
+## Developer Notes
+
+* I was not sure if "No special consideration should be made for screen orientation" meant that it *should* have alternate views and support for orientation changes in the middle of the app, or if it meant it does *not* need to implement that robustness?
+For time purposes, I'm going with the latter for now. That means the layout does not really work on a small screen landscape orientation, but portrait small screen or either orientation on a tablet should work fine.

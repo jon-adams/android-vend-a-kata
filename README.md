@@ -19,6 +19,7 @@ Standard Android development requirements:
 ### Automated tests
 
 * Run the usual gradle Android test tasks (`test`, etc.) from the command line, or use Android Studio and right-click under the app `/java` path and either the androidTest (integration) or test (unit) structures to run the appropriate tests
+* Don't forget to run `adb shell monkey -p firetiger.net.vendakata -v 2500` to chaos monkey test random input
 
 ## Kata requirements
 

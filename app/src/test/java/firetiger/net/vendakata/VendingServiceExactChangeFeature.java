@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 public class VendingServiceExactChangeFeature {
     private IVendService machine;
 
-    private Product cola = new Product("ROYAL crown cola", 500);
+    private final Product cola = new Product("ROYAL crown cola", 500);
 
     @Before
     public void setUp() {

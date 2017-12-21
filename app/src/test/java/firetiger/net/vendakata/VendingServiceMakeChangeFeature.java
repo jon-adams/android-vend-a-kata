@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class VendingServiceMakeChangeFeature {
     private IVendService machine;
 
-    private Product cola = new Product("cola", 100);
+    private final Product cola = new Product("cola", 100);
 
     @Before
     public void setUp() {

@@ -15,19 +15,19 @@ import firetiger.net.vendakata.services.IVendService;
 
 public final class VendingMachineViewModel extends AndroidViewModel {
     @NonNull
-    private final MutableLiveData<String> display = new MutableLiveData<String>();
+    private final MutableLiveData<String> display = new MutableLiveData<>();
 
     @NonNull
-    private final MutableLiveData<String> change = new MutableLiveData<String>();
+    private final MutableLiveData<String> change = new MutableLiveData<>();
 
     @NonNull
-    private final MutableLiveData<String> product1 = new MutableLiveData<String>();
+    private final MutableLiveData<String> product1 = new MutableLiveData<>();
 
     @NonNull
-    private final MutableLiveData<String> product2 = new MutableLiveData<String>();
+    private final MutableLiveData<String> product2 = new MutableLiveData<>();
 
     @NonNull
-    private final MutableLiveData<String> product3 = new MutableLiveData<String>();
+    private final MutableLiveData<String> product3 = new MutableLiveData<>();
 
     @Nullable
     private IVendService vendingMachine;
@@ -92,14 +92,13 @@ public final class VendingMachineViewModel extends AndroidViewModel {
         return result;
     }
 
-    public boolean purchaseProduct(int productIndex) {
+    public void purchaseProduct(int productIndex) {
         if (this.vendingMachine == null) {
             throw new UnsupportedOperationException("you must call init() before calling any other methods in this view model");
         }
 
-        final boolean result = this.vendingMachine.purchaseProduct(productIndex);
+        this.vendingMachine.purchaseProduct(productIndex);
         updateDisplay();
-        return result;
     }
 
     public void returnCoins() {
@@ -119,6 +118,6 @@ public final class VendingMachineViewModel extends AndroidViewModel {
         this.display.postValue(this.vendingMachine.updateAndGetCurrentMessageForDisplay());
         this.change.postValue(
                 this.getApplication().getResources().getString(R.string.vend_action_collect,
-                (float) this.vendingMachine.getUscInReturn() / 100));
+                        (float) this.vendingMachine.getUscInReturn() / 100));
     }
 }

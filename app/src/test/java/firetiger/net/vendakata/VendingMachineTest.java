@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 public class VendingMachineTest {
     private IVendService machine;
 
-    private Product cola = new Product("cola", 100);
+    private final Product cola = new Product("cola", 100);
 
     @Before
     public void setUp() {

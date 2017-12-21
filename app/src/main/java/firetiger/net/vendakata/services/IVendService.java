@@ -2,6 +2,10 @@ package firetiger.net.vendakata.services;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
+import firetiger.net.vendakata.models.Product;
+
 /**
  * Service for core vend functionality
  */
@@ -75,4 +79,12 @@ public interface IVendService {
      * Effectively zeros out anything in {@link #getUscInReturn()}.
      */
     void collectCoins();
+
+    /**
+     * List of all products in the machine
+     *
+     * @return list of products
+     */
+    @NonNull
+    List<Product> getProducts();
 }

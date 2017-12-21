@@ -2,6 +2,8 @@ package firetiger.net.vendakata.models;
 
 import android.support.annotation.NonNull;
 
+import com.annimon.stream.Stream;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -216,5 +218,12 @@ public class VendingMachine implements IVendService {
     @Override
     public void collectCoins() {
         this.returnInUsc = 0;
+    }
+
+    @NonNull
+    @Override
+    public List<Product> getProducts() {
+        // some Stream API (with backward compatibility library)
+        return Stream.of(this.availableStock).map(Stock::getProduct).toList();
     }
 }
